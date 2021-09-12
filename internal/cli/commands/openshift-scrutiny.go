@@ -16,14 +16,14 @@ import (
 	"os"
 )
 
-//openshiftAudit openshift benchmark object
-type openshiftAudit struct {
+//OpenshiftAudit openshift benchmark object
+type OpenshiftAudit struct {
 	ResultProcessor ResultProcessor
 	OutputGenerator ui.OutputGenerator
 	FileLoader      TestLoader
 	PredicateChain  []filters.Predicate
 	PredicateParams []string
-	PlChan          chan m2.openshiftAuditResults
+	PlChan          chan m2.OpenshiftAuditResults
 	CompletedChan   chan bool
 	FilesInfo       []utils.FilesInfo
 	Evaluator       eval.CmdEvaluator
@@ -110,8 +110,8 @@ type CmdEvaluator interface {
 }
 
 //NewopenshiftAudit new audit object
-func NewopenshiftAudit(filters []string, plChan chan m2.openshiftAuditResults, completedChan chan bool, fi []utils.FilesInfo, evaluator CmdEvaluator) *openshiftAudit {
-	return &openshiftAudit{
+func NewopenshiftAudit(filters []string, plChan chan m2.OpenshiftAuditResults, completedChan chan bool, fi []utils.FilesInfo, evaluator CmdEvaluator) *OpenshiftAudit {
+	return &OpenshiftAudit{
 		PredicateChain:  buildPredicateChain(filters),
 		PredicateParams: buildPredicateChainParams(filters),
 		ResultProcessor: GetResultProcessingFunction(filters),
@@ -124,12 +124,12 @@ func NewopenshiftAudit(filters []string, plChan chan m2.openshiftAuditResults, c
 }
 
 //Help return benchmark command help
-func (ldx openshiftAudit) Help() string {
+func (ldx OpenshiftAudit) Help() string {
 	return startup.GetHelpSynopsis()
 }
 
 //Run execute the full openshift benchmark
-func (ldx *openshiftAudit) Run(args []string) int {
+func (ldx *OpenshiftAudit) Run(args []string) int {
 	// load audit tests fro benchmark folder
 	auditTests := ldx.FileLoader.LoadAuditTests(ldx.FilesInfo)
 	// filter tests by cmd criteria
@@ -143,8 +143,8 @@ func (ldx *openshiftAudit) Run(args []string) int {
 	return 0
 }
 
-func sendResultToPlugin(plChan chan m2.openshiftAuditResults, completedChan chan bool, auditTests []*models.SubCategory) {
-	ka := m2.openshiftAuditResults{BenchmarkType: "openshift", Categories: make([]m2.AuditBenchResult, 0)}
+func sendResultToPlugin(plChan chan m2.OpenshiftAuditResults, completedChan chan bool, auditTests []*models.SubCategory) {
+	ka := m2.OpenshiftAuditResults{BenchmarkType: "openshift", Categories: make([]m2.AuditBenchResult, 0)}
 	for _, at := range auditTests {
 		for _, ab := range at.AuditTests {
 			var testResult = "FAIL"
@@ -160,7 +160,7 @@ func sendResultToPlugin(plChan chan m2.openshiftAuditResults, completedChan chan
 }
 
 // runAuditTest execute category of audit tests
-func (ldx *openshiftAudit) runAuditTest(at *models.AuditBench) []*models.AuditBench {
+func (ldx *OpenshiftAudit) runAuditTest(at *models.AuditBench) []*models.AuditBench {
 	auditRes := make([]*models.AuditBench, 0)
 	if at.NonApplicable {
 		auditRes = append(auditRes, at)
@@ -174,6 +174,6 @@ func (ldx *openshiftAudit) runAuditTest(at *models.AuditBench) []*models.AuditBe
 }
 
 //Synopsis for help
-func (ldx *openshiftAudit) Synopsis() string {
+func (ldx *OpenshiftAudit) Synopsis() string {
 	return ldx.Help()
 }

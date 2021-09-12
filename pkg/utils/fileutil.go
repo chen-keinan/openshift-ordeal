@@ -52,7 +52,7 @@ func (openshiftf bFolder) GetHomeFolder() (string, error) {
 		return "", err
 	}
 	// User can set a custom KUBE_KNARK_HOME from environment variable
-	usrHome := GetEnv(common.openshiftProbeHomeEnvVar, usr.HomeDir)
+	usrHome := GetEnv(common.OpenShiftScrutinyHomeEnvVar, usr.HomeDir)
 	return path.Join(usrHome, ".openshift-scrutiny"), nil
 }
 
@@ -99,7 +99,7 @@ func GetHomeFolder() string {
 		panic("Failed to fetch user home folder")
 	}
 	// User can set a custom openshift_PROBE_HOME from environment variable
-	usrHome := GetEnv(common.openshiftProbeHomeEnvVar, usr.HomeDir)
+	usrHome := GetEnv(common.OpenShiftScrutinyHomeEnvVar, usr.HomeDir)
 	return path.Join(usrHome, ".openshift-scrutiny")
 }
 

@@ -75,20 +75,21 @@ const (
 	ClassicFull = "classic"
 	//Synopsis help
 	Synopsis = "synopsis"
-	//LdxProbeCli Name
-	LdxProbeCli = "ldx-probe"
-	//LdxProbeVersion version
-	LdxProbeVersion = "0.1"
+	//OpenshiftScrutinyCli Name
+	OpenshiftScrutinyCli = "openshift-scrutiny"
+	//OpenshiftScrutinyVersion version
+	OpenshiftScrutinyVersion = "0.1"
 	//IncludeParam param
 	IncludeParam = "i="
 	//ExcludeParam param
 	ExcludeParam = "e="
 	//NodeParam param
 	NodeParam = "n="
-	//OpenshiftProbeHomeEnvVar ldx probe Home env var
-	OpenshiftProbeHomeEnvVar = "OPENSHIFT_SCRUTINY_HOME"
-	//openshiftProbe binary name
-	openshiftProbe = "openshift-scrutiny"
+	//OpenShiftScrutinyHomeEnvVar Opensh
+	//ift scrutiny Home env var
+	OpenShiftScrutinyHomeEnvVar = "OPENSHIFT_SCRUTINY_HOME"
+	//OpenshiftScrutiny binary name
+	OpenshiftScrutiny = "openshift-scrutiny"
 	//RootUser process user owner
 	RootUser = "root"
 	//NonApplicableTest test is not applicable

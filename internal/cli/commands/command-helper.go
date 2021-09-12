@@ -205,7 +205,7 @@ func filteredAuditBenchTests(auditTests []*models.SubCategory, pc []filters.Pred
 
 func executeTests(ft []*models.SubCategory, execTestFunc func(ad *models.AuditBench) []*models.AuditBench, log *logger.LdxProbeLogger) []*models.SubCategory {
 	completedTest := make([]*models.SubCategory, 0)
-	log.Console(ui.openshiftAuditTest)
+	log.Console(ui.OpenshiftAuditTest)
 	bar := pb.StartNew(len(ft)).Prefix("Executing openshift specs:")
 	for _, f := range ft {
 		tr := ui.ExecuteSpecs(f, execTestFunc)

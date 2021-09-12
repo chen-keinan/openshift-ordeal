@@ -11,7 +11,7 @@ import (
 
 //openshiftBenchAuditResultHook this plugin method accept openshift audit bench results
 //event include test data , description , audit, remediation and result
-func openshiftBenchAuditResultHook(openshiftAuditResults models.openshiftAuditResults) error {
+func openshiftBenchAuditResultHook(openshiftAuditResults models.OpenshiftAuditResults) error {
 	var sb = new(bytes.Buffer)
 	err := json.NewEncoder(sb).Encode(openshiftAuditResults)
 	fmt.Print(openshiftAuditResults)

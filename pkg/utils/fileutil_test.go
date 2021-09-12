@@ -121,11 +121,11 @@ func saveFilesIfNotExist(filesData []FilesInfo) error {
 
 //Test_GetEnv test getting home openshift-scrutiny folder
 func Test_GetEnv(t *testing.T) {
-	os.Setenv(common.openshiftProbeHomeEnvVar, "/home/openshift-scrutiny")
-	homeFolder := GetEnv(common.openshiftProbeHomeEnvVar, "/home/user")
+	os.Setenv(common.OpenShiftScrutinyHomeEnvVar, "/home/openshift-scrutiny")
+	homeFolder := GetEnv(common.OpenShiftScrutinyHomeEnvVar, "/home/user")
 	assert.Equal(t, homeFolder, "/home/openshift-scrutiny")
-	os.Unsetenv(common.openshiftProbeHomeEnvVar)
-	homeFolder = GetEnv(common.openshiftProbeHomeEnvVar, "/home/user")
+	os.Unsetenv(common.OpenShiftScrutinyHomeEnvVar)
+	homeFolder = GetEnv(common.OpenShiftScrutinyHomeEnvVar, "/home/user")
 	assert.Equal(t, homeFolder, "/home/user")
 }
 
