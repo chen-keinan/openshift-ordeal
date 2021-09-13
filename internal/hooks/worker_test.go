@@ -1,7 +1,7 @@
 package hooks
 
 import (
-	m2 "github.com/chen-keinan/openshift-scrutiny/pkg/models"
+	m2 "github.com/chen-keinan/openshift-ordeal/pkg/models"
 	"github.com/stretchr/testify/assert"
 	"go.uber.org/zap"
 	"testing"

@@ -1,4 +1,4 @@
-module github.com/chen-keinan/openshift-scrutiny
+module github.com/chen-keinan/openshift-ordeal
 
 go 1.16
 

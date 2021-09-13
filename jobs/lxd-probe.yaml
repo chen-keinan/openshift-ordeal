@@ -1,18 +1,18 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: openshift-scrutiny
+  name: openshift-ordeal
 spec:
   template:
     metadata:
       labels:
-        app: openshift-scrutiny
+        app: openshift-ordeal
     spec:
       hostPID: true
       containers:
-      - name: openshift-scrutiny
-        image: chenkeinan/openshift-scrutiny:latest
-        command: ["./openshift-scrutiny"]
+      - name: openshift-ordeal
+        image: chenkeinan/openshift-ordeal:latest
+        command: ["./openshift-ordeal"]
         volumeMounts:
         - name: var-lib-etcd
           mountPath: /var/lib/etcd

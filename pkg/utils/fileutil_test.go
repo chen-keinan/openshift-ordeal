@@ -2,8 +2,8 @@ package utils
 
 import (
 	"fmt"
-	"github.com/chen-keinan/openshift-scrutiny/internal/common"
-	"github.com/chen-keinan/openshift-scrutiny/pkg/utils/mocks"
+	"github.com/chen-keinan/openshift-ordeal/internal/common"
+	"github.com/chen-keinan/openshift-ordeal/pkg/utils/mocks"
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/assert"
 	"os"
@@ -15,7 +15,7 @@ import (
 //Test_GetHomeFolder test
 func Test_GetHomeFolder(t *testing.T) {
 	a := GetHomeFolder()
-	assert.True(t, strings.HasSuffix(a, ".openshift-scrutiny"))
+	assert.True(t, strings.HasSuffix(a, ".openshift-ordeal"))
 }
 
 //Test_CreateHomeFolderIfNotExist test
@@ -38,7 +38,7 @@ func Test_GetBenchmarkFolder(t *testing.T) {
 	assert.NoError(t, err)
 	a, err := GetBenchmarkFolder("openshift", "v1.0.0", fm)
 	assert.NoError(t, err)
-	assert.True(t, strings.HasSuffix(a, ".openshift-scrutiny/benchmarks/openshift/v1.0.0"))
+	assert.True(t, strings.HasSuffix(a, ".openshift-ordeal/benchmarks/openshift/v1.0.0"))
 }
 
 //Test_CreateBenchmarkFolderIfNotExist test
@@ -119,13 +119,13 @@ func saveFilesIfNotExist(filesData []FilesInfo) error {
 	return nil
 }
 
-//Test_GetEnv test getting home openshift-scrutiny folder
+//Test_GetEnv test getting home openshift-ordeal folder
 func Test_GetEnv(t *testing.T) {
-	os.Setenv(common.OpenShiftScrutinyHomeEnvVar, "/home/openshift-scrutiny")
-	homeFolder := GetEnv(common.OpenShiftScrutinyHomeEnvVar, "/home/user")
-	assert.Equal(t, homeFolder, "/home/openshift-scrutiny")
-	os.Unsetenv(common.OpenShiftScrutinyHomeEnvVar)
-	homeFolder = GetEnv(common.OpenShiftScrutinyHomeEnvVar, "/home/user")
+	os.Setenv(common.OpenShiftordealHomeEnvVar, "/home/openshift-ordeal")
+	homeFolder := GetEnv(common.OpenShiftordealHomeEnvVar, "/home/user")
+	assert.Equal(t, homeFolder, "/home/openshift-ordeal")
+	os.Unsetenv(common.OpenShiftordealHomeEnvVar)
+	homeFolder = GetEnv(common.OpenShiftordealHomeEnvVar, "/home/user")
 	assert.Equal(t, homeFolder, "/home/user")
 }
 

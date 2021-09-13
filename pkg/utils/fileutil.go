@@ -2,7 +2,7 @@ package utils
 
 import (
 	"fmt"
-	"github.com/chen-keinan/openshift-scrutiny/internal/common"
+	"github.com/chen-keinan/openshift-ordeal/internal/common"
 	"io/ioutil"
 	"os"
 	"os/user"
@@ -24,7 +24,7 @@ type FolderMgr interface {
 	GetHomeFolder() (string, error)
 }
 
-//bFolder openshift-scrutiny folder object
+//bFolder openshift-ordeal folder object
 type bFolder struct {
 }
 
@@ -33,7 +33,7 @@ func NewKFolder() FolderMgr {
 	return &bFolder{}
 }
 
-//CreateFolder create new openshift-scrutiny folder
+//CreateFolder create new openshift-ordeal folder
 func (openshiftf bFolder) CreateFolder(folderName string) error {
 	_, err := os.Stat(folderName)
 	if os.IsNotExist(err) {
@@ -45,15 +45,15 @@ func (openshiftf bFolder) CreateFolder(folderName string) error {
 	return nil
 }
 
-//GetHomeFolder return openshift-scrutiny home folder
+//GetHomeFolder return openshift-ordeal home folder
 func (openshiftf bFolder) GetHomeFolder() (string, error) {
 	usr, err := user.Current()
 	if err != nil {
 		return "", err
 	}
 	// User can set a custom KUBE_KNARK_HOME from environment variable
-	usrHome := GetEnv(common.OpenShiftScrutinyHomeEnvVar, usr.HomeDir)
-	return path.Join(usrHome, ".openshift-scrutiny"), nil
+	usrHome := GetEnv(common.OpenShiftordealHomeEnvVar, usr.HomeDir)
+	return path.Join(usrHome, ".openshift-ordeal"), nil
 }
 
 //GetPluginSourceSubFolder return plugins source folder path
@@ -92,18 +92,18 @@ func CreatePluginsSourceFolderIfNotExist(fm FolderMgr) error {
 	return fm.CreateFolder(pluginfFolder)
 }
 
-//GetHomeFolder return openshift-scrutiny home folder
+//GetHomeFolder return openshift-ordeal home folder
 func GetHomeFolder() string {
 	usr, err := user.Current()
 	if err != nil {
 		panic("Failed to fetch user home folder")
 	}
 	// User can set a custom openshift_PROBE_HOME from environment variable
-	usrHome := GetEnv(common.OpenShiftScrutinyHomeEnvVar, usr.HomeDir)
-	return path.Join(usrHome, ".openshift-scrutiny")
+	usrHome := GetEnv(common.OpenShiftordealHomeEnvVar, usr.HomeDir)
+	return path.Join(usrHome, ".openshift-ordeal")
 }
 
-//CreateHomeFolderIfNotExist create openshift-scrutiny home folder if not exist
+//CreateHomeFolderIfNotExist create openshift-ordeal home folder if not exist
 func CreateHomeFolderIfNotExist(fm FolderMgr) error {
 	openshiftProbeFolder, err := fm.GetHomeFolder()
 	if err != nil {
@@ -113,7 +113,7 @@ func CreateHomeFolderIfNotExist(fm FolderMgr) error {
 	if os.IsNotExist(err) {
 		errDir := os.MkdirAll(openshiftProbeFolder, 0750)
 		if errDir != nil {
-			return fmt.Errorf("failed to create openshift-scrutiny home folder at %s", openshiftProbeFolder)
+			return fmt.Errorf("failed to create openshift-ordeal home folder at %s", openshiftProbeFolder)
 		}
 	}
 	return nil
@@ -128,7 +128,7 @@ func GetBenchmarkFolder(spec, version string, fm FolderMgr) (string, error) {
 	return filepath.Join(folder, fmt.Sprintf("benchmarks/%s/%s/", spec, version)), nil
 }
 
-//CreateBenchmarkFolderIfNotExist create openshift-scrutiny benchmark folder if not exist
+//CreateBenchmarkFolderIfNotExist create openshift-ordeal benchmark folder if not exist
 func CreateBenchmarkFolderIfNotExist(spec, version string, fm FolderMgr) error {
 	benchmarkFolder, err := GetBenchmarkFolder(spec, version, fm)
 	if err != nil {

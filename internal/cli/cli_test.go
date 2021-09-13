@@ -2,13 +2,13 @@ package cli
 
 import (
 	"github.com/chen-keinan/go-command-eval/eval"
-	"github.com/chen-keinan/openshift-scrutiny/internal/cli/commands"
-	"github.com/chen-keinan/openshift-scrutiny/internal/cli/mocks"
-	"github.com/chen-keinan/openshift-scrutiny/internal/common"
-	m3 "github.com/chen-keinan/openshift-scrutiny/internal/mocks"
-	"github.com/chen-keinan/openshift-scrutiny/internal/models"
-	m2 "github.com/chen-keinan/openshift-scrutiny/pkg/models"
-	"github.com/chen-keinan/openshift-scrutiny/pkg/utils"
+	"github.com/chen-keinan/openshift-ordeal/internal/cli/commands"
+	"github.com/chen-keinan/openshift-ordeal/internal/cli/mocks"
+	"github.com/chen-keinan/openshift-ordeal/internal/common"
+	m3 "github.com/chen-keinan/openshift-ordeal/internal/mocks"
+	"github.com/chen-keinan/openshift-ordeal/internal/models"
+	m2 "github.com/chen-keinan/openshift-ordeal/pkg/models"
+	"github.com/chen-keinan/openshift-ordeal/pkg/utils"
 	"github.com/golang/mock/gomock"
 	"github.com/mitchellh/cli"
 	"github.com/stretchr/testify/assert"
@@ -46,10 +46,10 @@ func Test_ArgsSanitizer(t *testing.T) {
 //Test_openshiftProbeHelpFunc test
 func Test_openshiftProbeHelpFunc(t *testing.T) {
 	cm := make(map[string]cli.CommandFactory)
-	bhf := openshiftProbeHelpFunc(common.OpenshiftScrutinyCli)
+	bhf := openshiftProbeHelpFunc(common.OpenshiftordealCli)
 	helpFile := bhf(cm)
 	assert.True(t, strings.Contains(helpFile, "Available commands are:"))
-	assert.True(t, strings.Contains(helpFile, "Usage: openshift-scrutiny [--version] [--help] <command> [<args>]"))
+	assert.True(t, strings.Contains(helpFile, "Usage: openshift-ordeal [--version] [--help] <command> [<args>]"))
 }
 
 //Test_createCliBuilderData test

@@ -1,11 +1,11 @@
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/chen-keinan/openshift-scrutiny/blob/main/LICENSE)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/chen-keinan/openshift-ordeal/blob/main/LICENSE)
 <img src="./pkg/img/coverage_badge.png" alt="test coverage badge">
-[![Gitter](https://badges.gitter.im/beacon-sec/openshift-scrutiny.svg)](https://gitter.im/beacon-sec/openshift-scrutiny?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+[![Gitter](https://badges.gitter.im/beacon-sec/openshift-ordeal.svg)](https://gitter.im/beacon-sec/openshift-ordeal?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 <br><img src="./pkg/img/openshift-ordeal.png" width="300" alt="openshift-ordeal logo"><br>
-# OpenShift-Scrutiny
+# OpenShift-ordeal
 
 ###  Scan your OpenShift cluster !!
-OpenShift-scrutiny is an open source audit scanner who perform audit check on OpenShift Cluster and output it security report.
+OpenShift-ordeal is an open source audit scanner who perform audit check on OpenShift Cluster and output it security report.
 
 The audit tests are the full implementation of [CIS openshift Benchmark specification](https://www.cisecurity.org/benchmark/openshift/) <br>
 
@@ -28,18 +28,18 @@ audit result now can be leveraged as webhook via user plugin(using go plugin)
 ## Installation
 
 ```
-git clone https://github.com/chen-keinan/openshift-scrutiny
-cd openshift-scrutiny
+git clone https://github.com/chen-keinan/openshift-ordeal
+cd openshift-ordeal
 make build
-./openshift-scrutiny
+./openshift-ordeal
 ```
 
-Note : openshift-scrutiny require privileged user to execute tests.
+Note : openshift-ordeal require privileged user to execute tests.
 
 ## Quick Start
 
 ```
-Usage: openshift-scrutiny [--version] [--help] <command> [<args>]
+Usage: openshift-ordeal [--version] [--help] <command> [<args>]
 
 Available commands are:
   -r , --report :  run audit tests and generate failure and warn report
@@ -49,23 +49,23 @@ Available commands are:
 
 ```
 ## User Plugin Usage
-The openshift-scrutiny expose hook for user plugins [Example](https://github.com/chen-keinan/openshift-scrutiny/tree/master/examples/plugins) :
+The openshift-ordeal expose hook for user plugins [Example](https://github.com/chen-keinan/openshift-ordeal/tree/master/examples/plugins) :
 - **openshiftBenchAuditResultHook** - this hook accepts audit benchmark results as found by audit test
 
 ##### Compile user plugin
 ```
 go build -buildmode=plugin -o=~/<plugin folder>/bench_plugin.so /<plugin folder>/bench_plugin.go
 ```
-##### Copy plugin to folder (.openshift-scrutiny folder is created on the 1st startup)
+##### Copy plugin to folder (.openshift-ordeal folder is created on the 1st startup)
 ```
-cp /<plugin folder>/bench_plugin.so ~/.openshift-scrutiny/plugins/compile/bench_plugin.so
+cp /<plugin folder>/bench_plugin.so ~/.openshift-ordeal/plugins/compile/bench_plugin.so
 ```
 Note: Plugin and binary must compile with the same linux env
 ## Supported Specs
-The openshift-scrutiny support cis specs and can be easily extended:
+The openshift-ordeal support cis specs and can be easily extended:
 - master config file change spec [CIS openshift Benchmark specification](https://www.cisecurity.org/benchmark/openshift/)
-both specs can be easily extended by amended the spec files under ```~/.openshift-scrutiny/benchmarks/openshift/v1.0.0``` folder
+both specs can be easily extended by amended the spec files under ```~/.openshift-ordeal/benchmarks/openshift/v1.0.0``` folder
 
 ## Contribution
 - code contribution is welcome !! , contribution with tests and passing linter is more than welcome :)
-- /.dev folder include vagrantfile to be used for development : [Dev Instruction](https://github.com/chen-keinan/openshift-scrutiny/tree/master/.dev)
+- /.dev folder include vagrantfile to be used for development : [Dev Instruction](https://github.com/chen-keinan/openshift-ordeal/tree/master/.dev)

@@ -1,8 +1,8 @@
 package startup
 
 import (
-	"github.com/chen-keinan/openshift-scrutiny/internal/common"
-	"github.com/chen-keinan/openshift-scrutiny/pkg/utils"
+	"github.com/chen-keinan/openshift-ordeal/internal/common"
+	"github.com/chen-keinan/openshift-ordeal/pkg/utils"
 	"github.com/stretchr/testify/assert"
 	"os"
 	"testing"
@@ -10,7 +10,7 @@ import (
 
 //Test_CreateopenshiftBenchmarkFilesIfNotExist test
 func Test_CreateopenshiftBenchmarkFilesIfNotExist(t *testing.T) {
-	bFiles, err := GenerateopenshiftBenchmarkFiles()
+	bFiles, err := GenerateOpenshiftBenchmarkFiles()
 	if err != nil {
 		t.Fatal(err)
 	}

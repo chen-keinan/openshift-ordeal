@@ -1,7 +1,7 @@
 package models
 
 import (
-	"github.com/chen-keinan/openshift-scrutiny/internal/common"
+	"github.com/chen-keinan/openshift-ordeal/internal/common"
 	"github.com/mitchellh/mapstructure"
 )
 

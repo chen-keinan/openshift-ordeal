@@ -2,13 +2,13 @@ package commands
 
 import (
 	"github.com/chen-keinan/go-command-eval/eval"
-	"github.com/chen-keinan/openshift-scrutiny/internal/cli/mocks"
-	"github.com/chen-keinan/openshift-scrutiny/internal/logger"
-	"github.com/chen-keinan/openshift-scrutiny/internal/models"
-	"github.com/chen-keinan/openshift-scrutiny/internal/startup"
-	"github.com/chen-keinan/openshift-scrutiny/pkg/filters"
-	m2 "github.com/chen-keinan/openshift-scrutiny/pkg/models"
-	"github.com/chen-keinan/openshift-scrutiny/pkg/utils"
+	"github.com/chen-keinan/openshift-ordeal/internal/cli/mocks"
+	"github.com/chen-keinan/openshift-ordeal/internal/logger"
+	"github.com/chen-keinan/openshift-ordeal/internal/models"
+	"github.com/chen-keinan/openshift-ordeal/internal/startup"
+	"github.com/chen-keinan/openshift-ordeal/pkg/filters"
+	m2 "github.com/chen-keinan/openshift-ordeal/pkg/models"
+	"github.com/chen-keinan/openshift-ordeal/pkg/utils"
 	"github.com/golang/mock/gomock"
 	"github.com/olekukonko/tablewriter"
 	"github.com/stretchr/testify/assert"
@@ -90,7 +90,7 @@ func Test_LoadAuditTest(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	bFiles, err := startup.GenerateopenshiftBenchmarkFiles()
+	bFiles, err := startup.GenerateOpenshiftBenchmarkFiles()
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -120,7 +120,7 @@ func Test_LoadGkeAuditTest(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	bFiles, err := startup.GenerateopenshiftBenchmarkFiles()
+	bFiles, err := startup.GenerateOpenshiftBenchmarkFiles()
 	if err != nil {
 		t.Fatal(err)
 	}

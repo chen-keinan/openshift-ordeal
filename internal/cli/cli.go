@@ -6,13 +6,13 @@ import (
 	"fmt"
 	"github.com/chen-keinan/go-command-eval/eval"
 	"github.com/chen-keinan/go-user-plugins/uplugin"
-	"github.com/chen-keinan/openshift-scrutiny/internal/cli/commands"
-	"github.com/chen-keinan/openshift-scrutiny/internal/common"
-	"github.com/chen-keinan/openshift-scrutiny/internal/hooks"
-	"github.com/chen-keinan/openshift-scrutiny/internal/logger"
-	"github.com/chen-keinan/openshift-scrutiny/internal/startup"
-	"github.com/chen-keinan/openshift-scrutiny/pkg/models"
-	"github.com/chen-keinan/openshift-scrutiny/pkg/utils"
+	"github.com/chen-keinan/openshift-ordeal/internal/cli/commands"
+	"github.com/chen-keinan/openshift-ordeal/internal/common"
+	"github.com/chen-keinan/openshift-ordeal/internal/hooks"
+	"github.com/chen-keinan/openshift-ordeal/internal/logger"
+	"github.com/chen-keinan/openshift-ordeal/internal/startup"
+	"github.com/chen-keinan/openshift-ordeal/pkg/models"
+	"github.com/chen-keinan/openshift-ordeal/pkg/utils"
 	"github.com/mitchellh/cli"
 	"go.uber.org/fx"
 	"go.uber.org/zap"
@@ -57,7 +57,7 @@ func initBenchmarkSpecData(fm utils.FolderMgr, ad ArgsData) []utils.FilesInfo {
 	switch ad.SpecType {
 	case "openshift":
 		if ad.SpecVersion == "v1.0.0" {
-			filesData, err = startup.GenerateopenshiftBenchmarkFiles()
+			filesData, err = startup.GenerateOpenshiftBenchmarkFiles()
 		}
 	}
 	if err != nil {
@@ -123,7 +123,7 @@ func initPluginWorker(plChan chan models.OpenshiftAuditResults, completedChan ch
 	worker.Invoke()
 }
 
-//StartCLICommand invoke cli openshift command openshift-scrutiny cli
+//StartCLICommand invoke cli openshift command openshift-ordeal cli
 func StartCLICommand(fm utils.FolderMgr, plChan chan models.OpenshiftAuditResults, completedChan chan bool, ad ArgsData, cmdArgs []string, commands map[string]cli.CommandFactory, log *logger.LdxProbeLogger) {
 	// init plugin folders
 	initPluginFolders(fm)
@@ -195,10 +195,10 @@ func createCliBuilderData(ca []string, cmd []cli.Command) map[string]cli.Command
 
 // invokeCommandCli invoke cli command with params
 func invokeCommandCli(args []string, commands map[string]cli.CommandFactory) (int, error) {
-	app := cli.NewCLI(common.OpenshiftScrutinyCli, common.OpenshiftScrutinyVersion)
+	app := cli.NewCLI(common.OpenshiftordealCli, common.OpenshiftordealVersion)
 	app.Args = append(app.Args, args...)
 	app.Commands = commands
-	app.HelpFunc = openshiftProbeHelpFunc(common.OpenshiftScrutinyCli)
+	app.HelpFunc = openshiftProbeHelpFunc(common.OpenshiftordealCli)
 	status, err := app.Run()
 	return status, err
 }
@@ -247,7 +247,7 @@ type ArgsData struct {
 //SanitizeArgs sanitizer func
 type SanitizeArgs func(str []string) ArgsData
 
-// openshiftProbeHelpFunc openshift-scrutiny Help function with all supported commands
+// openshiftProbeHelpFunc openshift-ordeal Help function with all supported commands
 func openshiftProbeHelpFunc(app string) cli.HelpFunc {
 	return func(commands map[string]cli.CommandFactory) string {
 		var buf bytes.Buffer

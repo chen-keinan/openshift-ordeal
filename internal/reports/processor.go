@@ -1,7 +1,7 @@
 package reports
 
 import (
-	"github.com/chen-keinan/openshift-scrutiny/internal/models"
+	"github.com/chen-keinan/openshift-ordeal/internal/models"
 	"github.com/gosuri/uitable"
 )
 

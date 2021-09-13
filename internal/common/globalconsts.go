@@ -75,21 +75,21 @@ const (
 	ClassicFull = "classic"
 	//Synopsis help
 	Synopsis = "synopsis"
-	//OpenshiftScrutinyCli Name
-	OpenshiftScrutinyCli = "openshift-scrutiny"
-	//OpenshiftScrutinyVersion version
-	OpenshiftScrutinyVersion = "0.1"
+	//OpenshiftordealCli Name
+	OpenshiftordealCli = "openshift-ordeal"
+	//OpenshiftordealVersion version
+	OpenshiftordealVersion = "0.1"
 	//IncludeParam param
 	IncludeParam = "i="
 	//ExcludeParam param
 	ExcludeParam = "e="
 	//NodeParam param
 	NodeParam = "n="
-	//OpenShiftScrutinyHomeEnvVar Opensh
-	//ift scrutiny Home env var
-	OpenShiftScrutinyHomeEnvVar = "OPENSHIFT_SCRUTINY_HOME"
-	//OpenshiftScrutiny binary name
-	OpenshiftScrutiny = "openshift-scrutiny"
+	//OpenShiftordealHomeEnvVar Opensh
+	//ift ordeal Home env var
+	OpenShiftordealHomeEnvVar = "OPENSHIFT_ordeal_HOME"
+	//Openshiftordeal binary name
+	Openshiftordeal = "openshift-ordeal"
 	//RootUser process user owner
 	RootUser = "root"
 	//NonApplicableTest test is not applicable

@@ -1,14 +1,14 @@
 SHELL := /bin/bash
 
 GOCMD=go
-MOVESANDBOX=mv ~/vms/openshift-scrutinyopenshift-scrutiny ~/vms-local/openshift-scrutiny
+MOVESANDBOX=mv ~/vms/openshift-ordealopenshift-ordeal ~/vms-local/openshift-ordeal
 GOPACKR=$(GOCMD) get -u github.com/gobuffalo/packr/packr && packr
 GOMOD=$(GOCMD) mod
 GOMOCKS=$(GOCMD) generate ./...
 GOBUILD=$(GOCMD) build
 GOTEST=$(GOCMD) test
-BINARY_NAME=openshift-scrutiny
-GOCOPY=cp openshift-scrutiny ~/vagrant_file/.
+BINARY_NAME=openshift-ordeal
+GOCOPY=cp openshift-ordeal ~/vagrant_file/.
 
 all:test lint build
 
@@ -30,7 +30,7 @@ build:
 	export PATH=$GOPATH/bin:$PATH;
 	export PATH=$PATH:/home/vagrant/go/bin
 	export PATH=$PATH:/home/root/go/bin
-	GOOS=linux GOARCH=amd64 $(GOBUILD) -v ./cmd/openshift-scrutiny;
+	GOOS=linux GOARCH=amd64 $(GOBUILD) -v ./cmd/openshift-ordeal;
 install:build_travis
 	cp $(BINARY_NAME) $(GOPATH)/bin/$(BINARY_NAME)
 test_travis:
@@ -41,15 +41,15 @@ test_travis:
 	$(GOCMD) tool cover -html=coverage.md -o coverage.html
 build_travis:
 	$(GOPACKR)
-	GOOS=linux GOARCH=amd64 $(GOBUILD) -v ./cmd/openshift-scrutiny;
+	GOOS=linux GOARCH=amd64 $(GOBUILD) -v ./cmd/openshift-ordeal;
 build_remote:
 	$(GOPACKR)
-	GOOS=linux GOARCH=amd64 $(GOBUILD) -v -gcflags='-N -l' ./cmd/openshift-scrutiny
-	mv openshift-scrutiny ~/boxes/basic_box/openshift-scrutiny
+	GOOS=linux GOARCH=amd64 $(GOBUILD) -v -gcflags='-N -l' ./cmd/openshift-ordeal
+	mv openshift-ordeal ~/boxes/basic_box/openshift-ordeal
 dlv:
-	dlv --listen=:2345 --headless=true --api-version=2 --accept-multiclient exec ./openshift-scrutiny
+	dlv --listen=:2345 --headless=true --api-version=2 --accept-multiclient exec ./openshift-ordeal
 build_beb:
 	$(GOPACKR)
-	GOOS=linux GOARCH=amd64 $(GOBUILD) -v -gcflags='-N -l' cmd/openshift/openshift-scrutiny.go
+	GOOS=linux GOARCH=amd64 $(GOBUILD) -v -gcflags='-N -l' cmd/openshift/openshift-ordeal.go
 	scripts/deb.sh
 .PHONY: all build install test

@@ -1,8 +1,8 @@
 package ui
 
 import (
-	"github.com/chen-keinan/openshift-scrutiny/internal/logger"
-	"github.com/chen-keinan/openshift-scrutiny/internal/models"
+	"github.com/chen-keinan/openshift-ordeal/internal/logger"
+	"github.com/chen-keinan/openshift-ordeal/internal/models"
 )
 
 // OutputGenerator for  audit results

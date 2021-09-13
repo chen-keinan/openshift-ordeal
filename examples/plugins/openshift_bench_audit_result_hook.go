@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"github.com/chen-keinan/openshift-scrutiny/pkg/models"
+	"github.com/chen-keinan/openshift-ordeal/pkg/models"
 	"net/http"
 	"strings"
 )

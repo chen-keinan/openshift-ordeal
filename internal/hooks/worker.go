@@ -3,7 +3,7 @@ package hooks
 import (
 	"fmt"
 	"github.com/chen-keinan/go-user-plugins/uplugin"
-	"github.com/chen-keinan/openshift-scrutiny/pkg/models"
+	"github.com/chen-keinan/openshift-ordeal/pkg/models"
 	"go.uber.org/zap"
 	"plugin"
 )

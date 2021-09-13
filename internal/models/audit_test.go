@@ -2,7 +2,7 @@ package models
 
 import (
 	"fmt"
-	"github.com/chen-keinan/openshift-scrutiny/internal/common"
+	"github.com/chen-keinan/openshift-ordeal/internal/common"
 	"gopkg.in/yaml.v2"
 	"io/ioutil"
 	"os"

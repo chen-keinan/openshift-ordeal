@@ -2,16 +2,16 @@ package startup
 
 import (
 	"fmt"
-	"github.com/chen-keinan/openshift-scrutiny/internal/common"
-	"github.com/chen-keinan/openshift-scrutiny/pkg/utils"
+	"github.com/chen-keinan/openshift-ordeal/internal/common"
+	"github.com/chen-keinan/openshift-ordeal/pkg/utils"
 	"github.com/gobuffalo/packr"
 	"os"
 	"path/filepath"
 )
 
-//GenerateopenshiftBenchmarkFiles use packr to load benchmark audit test yaml
+//GenerateOpenshiftBenchmarkFiles use packr to load benchmark audit test yaml
 //nolint:gocyclo
-func GenerateopenshiftBenchmarkFiles() ([]utils.FilesInfo, error) {
+func GenerateOpenshiftBenchmarkFiles() ([]utils.FilesInfo, error) {
 	fileInfo := make([]utils.FilesInfo, 0)
 	box := packr.NewBox("./../benchmark/openshift/v1.0.0/")
 	// Add Master Node Configuration tests
