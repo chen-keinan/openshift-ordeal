@@ -1,18 +1,41 @@
 echo "start vagrant provioning..."
-sudo apt-get update
+sudo apt-get update -y
+sudo apt-get install docker.io -y
 
 echo "configure openshift user and group"
-sudo adduser vagrant openshift
-newgrp openshift
+systemctl start docker
+systemctl enable docker
+systemctl status docker
 
-echo "install openshift tools"
-sudo apt install zfsutils-linux
+echo "download openshift origin"
+wget https://github.com/openshift/origin/releases/download/v3.11.0/openshift-origin-client-tools-v3.11.0-0cbc58b-linux-64bit.tar.gz
 
-echo "setup openshift manager"
-openshift init --preseed
+echo "extract openshift origin"
+tar -xvzf openshift-origin-client-tools-v3.11.0-0cbc58b-linux-64bit.tar.gz
+cd openshift-origin-client-tools-v3.11.0-0cbc58b-linux-64bit
+cp oc kubectl /usr/local/bin/
+oc version
 
-echo "install curl pkg..."
-sudo apt-get install -y curl zfsutils-linux
+echo "{\"insecure-registries\" : [ \"172.30.0.0/16\" ]}" > /etc/docker/daemon.json
+systemctl restart docker
+
+oc cluster up --public-hostname=172.30.1.5
+oc login -u system:admin
+oc project default
+oc status
+
+oc new-project dev --display-name="Project - Dev" --description="My Project"
+oc project my-project
+oc status
+oc get svc
+oc get pods
+
+oc tag --source=docker openshift/deployment-example:v2 deployment-example:latest
+oc new-app deployment-example
+oc status
+
+oc expose service/deployment-example
+
 
 echo "install golang pkg"
 sudo add-apt-repository ppa:longsleep/golang-backports
