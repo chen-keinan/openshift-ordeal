@@ -2,6 +2,7 @@
 <img src="./pkg/img/coverage_badge.png" alt="test coverage badge">
 [![Gitter](https://badges.gitter.im/beacon-sec/openshift-scrutiny.svg)](https://gitter.im/beacon-sec/openshift-scrutiny?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
+<br><img src="./pkg/img/openshift-ordeal.png" width="300" alt="openshift-ordeal logo"><br>
 # OpenShift-Scrutiny
 
 ###  Scan your OpenShift cluster !!
