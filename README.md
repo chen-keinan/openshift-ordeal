@@ -2,10 +2,10 @@
 <img src="./pkg/img/coverage_badge.png" alt="test coverage badge">
 [![Gitter](https://badges.gitter.im/beacon-sec/openshift-ordeal.svg)](https://gitter.im/beacon-sec/openshift-ordeal?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 <br><img src="./pkg/img/openshift-ordeal.png" width="300" alt="openshift-ordeal logo"><br>
-# OpenShift-ordeal
+# OpenShift-Ordeal
 
 ###  Scan your OpenShift cluster !!
-OpenShift-ordeal is an open source audit scanner who perform audit check on OpenShift Cluster and output it security report.
+OpenShift-Ordeal is an open source audit scanner who perform audit check on OpenShift Cluster and output it security report.
 
 The audit tests are the full implementation of [CIS openshift Benchmark specification](https://www.cisecurity.org/benchmark/openshift/) <br>
 
