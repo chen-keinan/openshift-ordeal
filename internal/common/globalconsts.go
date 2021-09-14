@@ -2,7 +2,7 @@ package common
 
 const (
 	//FilesystemConfiguration file name
-	FilesystemConfiguration = "1.1_filesystem_configuration.yml"
+	FilesystemConfiguration = "1.1_master_node_configuration_files.yml"
 	//ConfigureSoftwareUpdates file name
 	ConfigureSoftwareUpdates = "1.2_configure_software_updates.yml"
 	//ConfigureSudo file name

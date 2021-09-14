@@ -1,0 +1,44 @@
+---
+benchmark_type: openshift
+categories:
+  -
+    name: Control Plane Components
+    sub_category:
+      name: 1.1 Master Node Configuration Files
+      audit_tests:
+        - name: '1.1.1 Ensure that the API server pod specification file permissions are set to 644 or more restrictive (Automated)'
+          description: Ensure that the API server pod specification file has permissions of 644 or more restrictive.
+          profile_applicability: Master
+          audit:
+            - '#!/bin/bash for i in $( oc get pods -n openshift-kube-apiserver -l app=openshift-kube- apiserver -o name )
+               do
+               oc exec -n openshift-kube-apiserver $i -- \
+               stat -c %a /etc/kubernetes/static-pod-resources/kube-apiserver-pod.yaml done'
+          remediation: No remediation required; file permissions are managed by the operator.
+          check_type: multi_param
+          impact: None
+          eval_expr: "${0} <= 644"
+          default_value: By default, in OpenShift 4, the kube-apiserver-pod.yaml file has permissions of 644.
+          references:
+            - https://docs.openshift.com/container-platform/4.3/architecture/control- plane.html#defining-masters_control-plane
+            - https://docs.openshift.com/container-platform/4.5/operators/operator- reference.html#kube-apiserver-operator_red-hat-operators
+            - https://docs.openshift.com/container-platform/4.5/operators/operator- reference.html#openshift-apiserver-operator_red-hat-operators
+            - https://kubernetes.io/docs/reference/command-line-tools-reference/kube- apiserver/
+        - name: '1.1.2 Ensure that the API server pod specification file ownership is set to root:root (Automated)'
+          description: Ensure that the API server pod specification file ownership is set to root:root.
+          profile_applicability: Master
+          audit:
+            - '#!/bin/bash for i in $( oc get pods -n openshift-kube-apiserver -l app=openshift-kube- apiserver -o name )
+               do
+               oc exec -n openshift-kube-apiserver $i -- \
+               stat -c %U:%G /etc/kubernetes/static-pod-resources/kube-apiserver-pod.yaml done'
+          remediation: No remediation required; file permissions are managed by the operator.
+          check_type: multi_param
+          impact: None
+          eval_expr: "'${0}' == 'root:root';"
+          default_value: By default, in OpenShift 4, the kube-apiserver-pod.yaml file ownership is set to root:root.
+          references:
+            - https://docs.openshift.com/container-platform/4.3/architecture/control- plane.html#defining-masters_control-plane
+            - https://docs.openshift.com/container-platform/4.5/operators/operator- reference.html#kube-apiserver-operator_red-hat-operators
+            - https://docs.openshift.com/container-platform/4.5/operators/operator- reference.html#openshift-apiserver-operator_red-hat-operators
+            - https://kubernetes.io/docs/reference/command-line-tools-reference/kube- apiserver/

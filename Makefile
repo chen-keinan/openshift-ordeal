@@ -45,7 +45,7 @@ build_travis:
 build_remote:
 	$(GOPACKR)
 	GOOS=linux GOARCH=amd64 $(GOBUILD) -v -gcflags='-N -l' ./cmd/openshift-ordeal
-	mv openshift-ordeal ~/boxes/basic_box/openshift-ordeal
+	cp openshift-ordeal ~/boxes/openshift_box/openshift-ordeal
 dlv:
 	dlv --listen=:2345 --headless=true --api-version=2 --accept-multiclient exec ./openshift-ordeal
 build_beb:

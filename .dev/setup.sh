@@ -18,6 +18,8 @@ oc version
 
 echo "{\"insecure-registries\" : [ \"172.30.0.0/16\" ]}" > /etc/docker/daemon.json
 systemctl restart docker
+echo YKyk426144 > my_password.txt
+cat ~/my_password.txt | docker login --username chenkeinan --password-stdin
 
 oc cluster up --public-hostname=172.30.1.5
 oc login -u system:admin
@@ -27,15 +29,12 @@ oc status
 oc new-project dev --display-name="Project - Dev" --description="My Project"
 oc project my-project
 oc status
-oc get svc
-oc get pods
 
 oc tag --source=docker openshift/deployment-example:v2 deployment-example:latest
-oc new-app deployment-example
+oc new-app deployment-example:latest
 oc status
 
 oc expose service/deployment-example
-
 
 echo "install golang pkg"
 sudo add-apt-repository ppa:longsleep/golang-backports
