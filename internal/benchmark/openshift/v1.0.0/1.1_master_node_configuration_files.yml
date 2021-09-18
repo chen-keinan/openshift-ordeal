@@ -92,8 +92,27 @@ categories:
           remediation: No remediation required; file permissions are managed by the operator.
           check_type: multi_param
           impact: None
-          eval_expr: "'${0}' == 'root:root';"
+          eval_expr: "${0} <= 644"
           default_value: By default, in OpenShift 4, openshift-kube-scheduler-pod.yaml file has permissions of 644.
+          references:
+            - https://docs.openshift.com/container-platform/4.3/architecture/control- plane.html#defining-masters_control-plane
+            - https://docs.openshift.com/container-platform/4.5/operators/operator- reference.html#cluster-kube-scheduler-operator_red-hat-operators
+            - https://docs.openshift.com/container-platform/4.3/nodes/scheduling/nodes- scheduler-about.html
+            - https://kubernetes.io/docs/reference/command-line-tools-reference/kube- scheduler/
+        - name: '1.1.6 Ensure that the scheduler pod specification file ownership is set to root:root (Automated)'
+          description: Ensure that the scheduler pod specification file ownership is set to root:root.
+          profile_applicability: Master
+          audit:
+            - '#!/bin/bash for i in $(oc get pods -n openshift-kube-scheduler -l app=openshift-kube- scheduler -o name)
+                           do
+                           oc exec -n openshift-kube-scheduler $i -- \
+                           stat -c %U:%G /etc/kubernetes/static-pod-resources/kube-scheduler-pod.yaml
+                           done'
+          remediation: No remediation required; file permissions are managed by the operator.
+          check_type: multi_param
+          impact: None
+          eval_expr: "'${0}' == 'root:root';"
+          default_value: By default, in OpenShift 4, kube-scheduler-pod.yaml file ownership is set to root:root.
           references:
             - https://docs.openshift.com/container-platform/4.3/architecture/control- plane.html#defining-masters_control-plane
             - https://docs.openshift.com/container-platform/4.5/operators/operator- reference.html#cluster-kube-scheduler-operator_red-hat-operators
