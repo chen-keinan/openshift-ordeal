@@ -154,31 +154,30 @@ categories:
             - https://kubernetes.io/docs/admin/etcd/
             - https://docs.openshift.com/container-platform/4.3/architecture/control-
             - plane.html#defining-masters_control-plane
-        - name: '1.1.9 Ensure that the Container Network Interface file permissions are set to 644 or more restrictive (Manual)'
-          description: Ensure that the Container Network Interface files have permissions of 644 or more restrictive.
+        - name: '1.1.10 Ensure that the Container Network Interface file ownership is set to root:root (Manual)'
+          description: Ensure that the Container Network Interface files have ownership set to root:root.
           profile_applicability: Master
           audit:
             - '
-               # For CNI multus
-               for i in $(oc get pods -n openshift-multus -l app=multus -oname); do oc exec -n openshift-multus $i -- /bin/bash -c "stat -c \"%a %n\" /host/etc/cni/net.d/*.conf"; done
-               for i in $(oc get pods -n openshift-multus -l app=multus -oname); do oc exec -n openshift-multus $i -- /bin/bash -c "stat -c \"%a %n\" /host/var/run/multus/cni/net.d/*.conf"; done
+               for i in $(oc get pods -n openshift-multus -l app=multus -oname); do oc exec -n openshift-multus $i -- /bin/bash -c "stat -c \"%U:%G %n\" /host/etc/cni/net.d/*.conf"; done
+               for i in $(oc get pods -n openshift-multus -l app=multus -oname); do oc exec -n openshift-multus $i -- /bin/bash -c "stat -c \"%U:%G %n\" /host/var/run/multus/cni/net.d/*.conf"; done
                # For SDN pods
-               for i in $(oc get pods -n openshift-sdn -l app=sdn -oname); do oc exec -n openshift-sdn $i -- find /var/lib/cni/networks/openshift-sdn -type f -exec stat -c %a {} \;; done
-               for i in $(oc get pods -n openshift-sdn -l app=sdn -oname); do oc exec -n openshift-sdn $i -- find /var/run/openshift-sdn -type f -exec stat -c %a {} \;; done
-               # For OVS pods
-               for i in $(oc get pods -n openshift-sdn -l app=ovs -oname); do oc exec -n openshift-sdn $i -- find /var/run/openvswitch -type f -exec stat -c %a {} \;; done
-               for i in $(oc get pods -n openshift-sdn -l app=ovs -oname); do oc exec -n openshift-sdn $i -- find /etc/openvswitch -type f -exec stat -c %a {} \;; done
-               for i in $(oc get pods -n openshift-sdn -l app=ovs -oname); do oc exec -n openshift-sdn $i -- find /run/openvswitch -type f -exec stat -c %a {} \;; done'
+               for i in $(oc get pods -n openshift-sdn -l app=sdn -oname); do oc exec -n openshift-sdn $i -- find /var/lib/cni/networks/openshift-sdn -type f -exec stat -c \"%U:%G\" {} \;; done
+               for i in $(oc get pods -n openshift-sdn -l app=sdn -oname); do oc exec -n openshift-sdn $i -- find /var/run/openshift-sdn -type f -exec stat -c %U:%G {} \;; done
+               # For OVS pods in 4.5
+               for i in $(oc get pods -n openshift-sdn -l app=ovs -oname); do oc exec -n openshift-sdn $i -- find /var/run/openvswitch -type f -exec stat -c %U:%G {} \;; done
+               for i in $(oc get pods -n openshift-sdn -l app=ovs -oname); do oc exec -n openshift-sdn $i -- find /etc/openvswitch -type f -exec stat -c %U:%G {} \;; done
+               for i in $(oc get pods -n openshift-sdn -l app=ovs -oname); do oc exec -n openshift-sdn $i -- find /run/openvswitch -type f -exec stat -c %U:%G {} \;; done'
           remediation: No remediation required; file permissions are managed by the operator.
           check_type: multi_param
           impact: None
-          eval_expr: "'${0}' == 'root:root';"
+          eval_expr: "${0} <= 700"
           type: manual
-          default_value: 'In OpenShift 4, the default values are:
-                          /host/etc/cni/net.d/00-multus.conf = 600/host/var/run/multus/cni/net.d/80-
-                          openshift-network.conf = 644/var/lib/cni/networks/openshift-sdn/* = 644 /var/run/openshift-sdn/cniserver/config.json
-                          = 444/var/run/openvswitch/ovs- vswitchd.pid = 644/etc/openvswitch/conf.db = 644/etc/openvswitch/system- id.conf =
-                           644/etc/openvswitch/.conf.db.~lock~ = 600/run/openvswitch/ovs- vswitchd.pid = 644/run/openvswitch/ovsdb-server.pid = 644'
+          default_value: 'In OpenShift 4, the default file ownership is root:root for CNI Multus and SDN and openvswitch:openvswitch for the OVS plugin.
+                          /host/etc/cni/net.d/00-multus.conf = root:root /host/var/run/multus/cni/net.d/80-openshift-network.conf = root:root
+                          /var/lib/cni/networks/openshift-sdn = root:root/var/run/openshift-sdn =
+                          root:root/var/run/openvswitch = openvswitch:openvswitch/etc/openvswitch =
+                          openvswitch:openvswitch/run/openvswitch = openvswitch:openvswitch'
           references:
             - https://docs.openshift.com/container-platform/4.3/networking/cluster-network- operator.html
             - https://kubernetes.io/docs/concepts/cluster-administration/networking/
