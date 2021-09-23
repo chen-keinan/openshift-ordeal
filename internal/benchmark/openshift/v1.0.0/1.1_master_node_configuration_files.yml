@@ -158,8 +158,7 @@ categories:
           description: Ensure that the Container Network Interface files have ownership set to root:root.
           profile_applicability: Master
           audit:
-            - '
-               for i in $(oc get pods -n openshift-multus -l app=multus -oname); do oc exec -n openshift-multus $i -- /bin/bash -c "stat -c \"%U:%G %n\" /host/etc/cni/net.d/*.conf"; done
+            - '#!/bin/bash for i in $(oc get pods -n openshift-multus -l app=multus -oname); do oc exec -n openshift-multus $i -- /bin/bash -c "stat -c \"%U:%G %n\" /host/etc/cni/net.d/*.conf"; done
                for i in $(oc get pods -n openshift-multus -l app=multus -oname); do oc exec -n openshift-multus $i -- /bin/bash -c "stat -c \"%U:%G %n\" /host/var/run/multus/cni/net.d/*.conf"; done
                # For SDN pods
                for i in $(oc get pods -n openshift-sdn -l app=sdn -oname); do oc exec -n openshift-sdn $i -- find /var/lib/cni/networks/openshift-sdn -type f -exec stat -c \"%U:%G\" {} \;; done
@@ -185,13 +184,28 @@ categories:
           description: Ensure that the etcd data directory has permissions of 700 or more restrictive.
           profile_applicability: Master
           audit:
-            - ' for i in $(oc get pods -n openshift-etcd -l app=etcd -oname); do oc exec -n openshift-etcd -c etcd $i -- stat -c %a%n /var/lib/etcd/member; done'
+            - '#!/bin/bash for i in $(oc get pods -n openshift-etcd -l app=etcd -oname); do oc exec -n openshift-etcd -c etcd $i -- stat -c %a%n /var/lib/etcd/member; done'
           remediation: No remediation required. File permissions are managed by the etcd operator.
           check_type: multi_param
           impact: None
           eval_expr: "${0} == 700"
           type: manual
           default_value: 'By default, etcd data directory has permissions of 700.'
+          references:
+            - https://docs.openshift.com/container-platform/4.3/architecture/control- plane.html#defining-masters_control-plane
+            - https://etcd.io/#data-dir
+            - https://kubernetes.io/docs/tasks/administer-cluster/configure-upgrade-etcd/
+        - name: '1.1.12 Ensure that the etcd data directory ownership is set to etcd:etcd (Automated)'
+          description: Ensure that the etcd data directory ownership is set to root:root.
+          profile_applicability: Master
+          audit:
+            - '#!/bin/bash for i in $(oc get pods -n openshift-etcd -l app=etcd -oname); do oc exec -n openshift-etcd -c etcd $i -- stat -c %U:%G /var/lib/etcd/member; done'
+          remediation: No remediation required; file ownership is managed by the operator.
+          check_type: multi_param
+          impact: None
+          eval_expr: "'${0}' == 'root:root';"
+          type: manual
+          default_value: 'By default, in OpenShift 4, etcd data directory ownership is set to root:root.'
           references:
             - https://docs.openshift.com/container-platform/4.3/architecture/control- plane.html#defining-masters_control-plane
             - https://etcd.io/#data-dir
