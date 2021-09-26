@@ -229,3 +229,22 @@ categories:
           references:
             - https://docs.openshift.com/container- platform/4.5/cli_reference/openshift_cli/administrator-cli-commands.html
             - https://kubernetes.io/docs/setup/production- environment/tools/kubeadm/create-cluster-kubeadm/
+        - name: '1.1.14 Ensure that the admin.conf file ownership is set to root:root (Automated)'
+          description: Ensure that the admin.conf file ownership is set to root:root.
+          profile_applicability: Master
+          audit:
+            - '#!/bin/bash for i in $(oc get nodes -o name) do
+                             echo $i
+                             oc debug $i --  <<EOF
+                           chroot /host
+                           stat -c %U:%G /etc/kubernetes/kubeconfig
+                           EOF done'
+          remediation: No remediation required; file permissions are managed by the operator.
+          check_type: multi_param
+          impact: None
+          eval_expr: "'${0}' == 'root:root';"
+          type: manual
+          default_value: 'By default, in OpenShift 4, kubeconfig file ownership is set to root:root.'
+          references:
+            - https://docs.openshift.com/container- platform/4.5/cli_reference/openshift_cli/administrator-cli-commands.html
+            - https://kubernetes.io/docs/reference/setup-tools/kubeadm/
