@@ -14,7 +14,7 @@ audit result now can be leveraged as webhook via user plugin(using go plugin)
  1.  root cause of the security issue.
  2. proposed remediation for security issue
 
-#### Linux container audit scan output:
+#### Openshift cluster scan output:
 
 
 --------------------------------------------------------------------------------------------------------
