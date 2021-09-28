@@ -4,7 +4,7 @@
 <br><img src="./pkg/img/openshift-ordeal.png" width="300" alt="openshift-ordeal logo"><br>
 # OpenShift-Ordeal
 
-###  Scan your OpenShift cluster !!
+###  Scan your Openshift cluster !!
 OpenShift-Ordeal is an open source audit scanner who perform audit check on OpenShift Cluster and output it security report.
 
 The audit tests are the full implementation of [CIS openshift Benchmark specification](https://www.cisecurity.org/benchmark/openshift/) <br>
