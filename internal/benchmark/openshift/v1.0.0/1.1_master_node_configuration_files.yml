@@ -298,4 +298,22 @@ categories:
             - https://docs.openshift.com/container-platform/4.5/operators/operator- reference.html#kube-controller-manager-operator_red-hat-operators
             - https://docs.openshift.com/container-platform/4.5/operators/operator-reference.html#cluster-openshift-controller-manager-operator_red-hat-operators
             - https://kubernetes.io/docs/reference/command-line-tools-reference/kube-controller-manager/
+        - name: '1.1.18 Ensure that the controller-manager.conf file ownership is set to root:root (Automated)'
+          description: Ensure that the controller-manager.conf file ownership is set to root:root.
+          profile_applicability: Master
+          audit:
+            - '#!/bin/bash for i in $(oc get pods -n openshift-kube-controller-manager -l app=kube- controller-manager -oname)
+                           do
+                           oc exec -n openshift-kube-controller-manager $i -- \
+                           stat -c %U:%G /etc/kubernetes/static-pod-resources/configmaps/controller-
+                           manager-kubeconfig/kubeconfig done'
+          remediation: No remediation required; file permissions are managed by the operator.
+          check_type: multi_param
+          impact: None
+          eval_expr: "'${0}' == 'root:root';"
+          default_value: 'By default, controller-manager-kubeconfig file ownership is set to root:root.'
+          references:
+            - https://docs.openshift.com/container-platform/4.5/operators/operator- reference.html#kube-controller-manager-operator_red-hat-operators
+            - https://docs.openshift.com/container-platform/4.5/operators/operator-reference.html#cluster-openshift-controller-manager-operator_red-hat-operators
+            - https://kubernetes.io/docs/reference/command-line-tools-reference/kube-controller-manager/
 
