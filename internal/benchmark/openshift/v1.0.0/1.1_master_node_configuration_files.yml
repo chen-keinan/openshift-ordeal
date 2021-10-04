@@ -316,4 +316,28 @@ categories:
             - https://docs.openshift.com/container-platform/4.5/operators/operator- reference.html#kube-controller-manager-operator_red-hat-operators
             - https://docs.openshift.com/container-platform/4.5/operators/operator-reference.html#cluster-openshift-controller-manager-operator_red-hat-operators
             - https://kubernetes.io/docs/reference/command-line-tools-reference/kube-controller-manager/
+        - name: '1.1.19 Ensure that the OpenShift PKI directory and file ownership is set to root:root (Automated)'
+          description: Ensure that the OpenShift PKI directory and file ownership is set to root:root.
+          profile_applicability: Master
+          audit:
+            - '#!/bin/bash for i in $(oc -n openshift-kube-apiserver get pod -l app=openshift-kube- apiserver -o jsonpath='{ .items[ * ].metadata.name }')
+                           do
+                           echo $i static-pod-certs
+                           oc exec -n openshift-kube-apiserver $i -c kube-apiserver -- \
+                           find /etc/kubernetes/static-pod-certs -type d -wholename ''*/secrets*''
+                -exec stat -c %U:%G {} \;
+                oc exec -n openshift-kube-apiserver $i -c kube-apiserver -- \
+                find /etc/kubernetes/static-pod-certs -type f -wholename ''*/secrets*''
+                -exec stat -c %U:%G {} \;
+                echo $i static-pod-resources
+                oc exec -n openshift-kube-apiserver $i -c kube-apiserver -- \
+                find /etc/kubernetes/static-pod-resources -type d -wholename ''*/secrets*'' -exec stat -c %U:%G {} \;
+                oc exec -n openshift-kube-apiserver $i -c kube-apiserver -- \ find /etc/kubernetes/static-pod-resources -type f -wholename  ''*/secrets*'' -exec stat -c %U:%G {} \; done'
+          remediation: No remediation required; file permissions are managed by the operator.
+          check_type: multi_param
+          impact: None
+          eval_expr: "'${0}' == 'root:root';"
+          default_value: 'By default, the static-pod-resources/secrets and static-pod-certs directories and all of the files and directories contained within it, are set to be owned by the root user.'
+          references:
+            - https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/
 
