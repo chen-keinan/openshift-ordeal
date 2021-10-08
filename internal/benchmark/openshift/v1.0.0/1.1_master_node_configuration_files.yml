@@ -340,4 +340,20 @@ categories:
           default_value: 'By default, the static-pod-resources/secrets and static-pod-certs directories and all of the files and directories contained within it, are set to be owned by the root user.'
           references:
             - https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/
+        - name: '1.1.20 Ensure that the OpenShift PKI certificate file permissions are set to 644 or more restrictive (Manual)'
+          description: Ensure that OpenShift PKI certificate files have permissions of 644 or more restrictive.
+          profile_applicability: Master
+          audit:
+            - '#!/bin/bash for i in $(oc -n openshift-kube-apiserver get pod -l app=openshift-kube- apiserver -o jsonpath='{ .items[ * ].metadata.name }')
+                           do
+                           echo $i static-pod-certs
+                           oc exec -n openshift-kube-apiserver $i -c kube-apiserver -- \ find /etc/kubernetes/static-pod-certs -type f -wholename
+                           ''*/secrets/*.crt'' -exec stat -c %a {} \; done'
+          remediation: No remediation required; file permissions are managed by the operator.
+          check_type: multi_param
+          impact: None
+          eval_expr: "${0} <= 600"
+          default_value: 'By default, the certificates used by OpenShift are set to have permissions of 600.'
+          references:
+            - https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/
 
