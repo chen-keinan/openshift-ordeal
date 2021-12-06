@@ -87,7 +87,7 @@ const (
 	NodeParam = "n="
 	//OpenShiftordealHomeEnvVar Opensh
 	//ift ordeal Home env var
-	OpenShiftordealHomeEnvVar = "OPENSHIFT_ordeal_HOME"
+	OpenShiftordealHomeEnvVar = "OPENSHIFT_ORDEAL_HOME"
 	//Openshiftordeal binary name
 	Openshiftordeal = "openshift-ordeal"
 	//RootUser process user owner

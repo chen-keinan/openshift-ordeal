@@ -49,7 +49,7 @@ func printTestResults(at []*models.AuditBench, table *tablewriter.Table, categor
 	return models.AuditTestTotals{Fail: failCounter, Pass: passCounter, Warn: warnCounter}
 }
 
-func printClassicTestResults(at []*models.AuditBench, log *logger.LdxProbeLogger) models.AuditTestTotals {
+func printClassicTestResults(at []*models.AuditBench, log *logger.OsOrdealLogger) models.AuditTestTotals {
 	var (
 		warnCounter int
 		passCounter int
@@ -203,7 +203,7 @@ func filteredAuditBenchTests(auditTests []*models.SubCategory, pc []filters.Pred
 	return ft
 }
 
-func executeTests(ft []*models.SubCategory, execTestFunc func(ad *models.AuditBench) []*models.AuditBench, log *logger.LdxProbeLogger) []*models.SubCategory {
+func executeTests(ft []*models.SubCategory, execTestFunc func(ad *models.AuditBench) []*models.AuditBench, log *logger.OsOrdealLogger) []*models.SubCategory {
 	completedTest := make([]*models.SubCategory, 0)
 	log.Console(ui.OpenshiftAuditTest)
 	bar := pb.StartNew(len(ft)).Prefix("Executing openshift specs:")

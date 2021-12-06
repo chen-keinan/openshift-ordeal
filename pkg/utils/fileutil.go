@@ -51,7 +51,7 @@ func (openshiftf bFolder) GetHomeFolder() (string, error) {
 	if err != nil {
 		return "", err
 	}
-	// User can set a custom KUBE_KNARK_HOME from environment variable
+	// user can set a custom KUBE_KNARK_HOME from environment variable
 	usrHome := GetEnv(common.OpenShiftordealHomeEnvVar, usr.HomeDir)
 	return path.Join(usrHome, ".openshift-ordeal"), nil
 }
@@ -98,22 +98,22 @@ func GetHomeFolder() string {
 	if err != nil {
 		panic("Failed to fetch user home folder")
 	}
-	// User can set a custom openshift_PROBE_HOME from environment variable
+	// user can set a custom OPENSHIFT_ORDEAL_HOME from environment variable
 	usrHome := GetEnv(common.OpenShiftordealHomeEnvVar, usr.HomeDir)
 	return path.Join(usrHome, ".openshift-ordeal")
 }
 
 //CreateHomeFolderIfNotExist create openshift-ordeal home folder if not exist
 func CreateHomeFolderIfNotExist(fm FolderMgr) error {
-	openshiftProbeFolder, err := fm.GetHomeFolder()
+	openshiftOrdealFolder, err := fm.GetHomeFolder()
 	if err != nil {
 		return err
 	}
-	_, err = os.Stat(openshiftProbeFolder)
+	_, err = os.Stat(openshiftOrdealFolder)
 	if os.IsNotExist(err) {
-		errDir := os.MkdirAll(openshiftProbeFolder, 0750)
+		errDir := os.MkdirAll(openshiftOrdealFolder, 0750)
 		if errDir != nil {
-			return fmt.Errorf("failed to create openshift-ordeal home folder at %s", openshiftProbeFolder)
+			return fmt.Errorf("failed to create openshift-ordeal home folder at %s", openshiftOrdealFolder)
 		}
 	}
 	return nil

@@ -27,14 +27,14 @@ type OpenshiftAudit struct {
 	CompletedChan   chan bool
 	FilesInfo       []utils.FilesInfo
 	Evaluator       eval.CmdEvaluator
-	log             *logger.LdxProbeLogger
+	log             *logger.OsOrdealLogger
 }
 
 // ResultProcessor process audit results
 type ResultProcessor func(at *models.AuditBench, isSucceeded bool) []*models.AuditBench
 
 // ConsoleOutputGenerator print audit tests to stdout
-var ConsoleOutputGenerator ui.OutputGenerator = func(at []*models.SubCategory, log *logger.LdxProbeLogger) {
+var ConsoleOutputGenerator ui.OutputGenerator = func(at []*models.SubCategory, log *logger.OsOrdealLogger) {
 	grandTotal := make([]models.AuditTestTotals, 0)
 	table := tablewriter.NewWriter(os.Stdout)
 	table.SetHeader([]string{"Category", "Status", "Type", "Audit Test Description"})
@@ -51,7 +51,7 @@ var ConsoleOutputGenerator ui.OutputGenerator = func(at []*models.SubCategory, l
 }
 
 // ClassicOutputGenerator print audit tests to stdout in classic view
-var ClassicOutputGenerator ui.OutputGenerator = func(at []*models.SubCategory, log *logger.LdxProbeLogger) {
+var ClassicOutputGenerator ui.OutputGenerator = func(at []*models.SubCategory, log *logger.OsOrdealLogger) {
 	grandTotal := make([]models.AuditTestTotals, 0)
 	for _, a := range at {
 		log.Console(fmt.Sprintf("%s %s\n", "[Category]", a.Name))
@@ -85,7 +85,7 @@ func calculateFinalTotal(granTotal []models.AuditTestTotals) models.AuditTestTot
 }
 
 // ReportOutputGenerator print failed audit test to human report
-var ReportOutputGenerator ui.OutputGenerator = func(at []*models.SubCategory, log *logger.LdxProbeLogger) {
+var ReportOutputGenerator ui.OutputGenerator = func(at []*models.SubCategory, log *logger.OsOrdealLogger) {
 	for _, a := range at {
 		log.Table(reports.GenerateAuditReport(a.AuditTests))
 	}

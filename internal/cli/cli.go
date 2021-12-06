@@ -124,7 +124,7 @@ func initPluginWorker(plChan chan models.OpenshiftAuditResults, completedChan ch
 }
 
 //StartCLICommand invoke cli openshift command openshift-ordeal cli
-func StartCLICommand(fm utils.FolderMgr, plChan chan models.OpenshiftAuditResults, completedChan chan bool, ad ArgsData, cmdArgs []string, commands map[string]cli.CommandFactory, log *logger.LdxProbeLogger) {
+func StartCLICommand(fm utils.FolderMgr, plChan chan models.OpenshiftAuditResults, completedChan chan bool, ad ArgsData, cmdArgs []string, commands map[string]cli.CommandFactory, log *logger.OsOrdealLogger) {
 	// init plugin folders
 	initPluginFolders(fm)
 	// init plugin worker
@@ -198,7 +198,7 @@ func invokeCommandCli(args []string, commands map[string]cli.CommandFactory) (in
 	app := cli.NewCLI(common.OpenshiftordealCli, common.OpenshiftordealVersion)
 	app.Args = append(app.Args, args...)
 	app.Commands = commands
-	app.HelpFunc = openshiftProbeHelpFunc(common.OpenshiftordealCli)
+	app.HelpFunc = openshiftOrdealHelpFunc(common.OpenshiftordealCli)
 	status, err := app.Run()
 	return status, err
 }
@@ -247,8 +247,8 @@ type ArgsData struct {
 //SanitizeArgs sanitizer func
 type SanitizeArgs func(str []string) ArgsData
 
-// openshiftProbeHelpFunc openshift-ordeal Help function with all supported commands
-func openshiftProbeHelpFunc(app string) cli.HelpFunc {
+// openshiftOrdealHelpFunc openshift-ordeal Help function with all supported commands
+func openshiftOrdealHelpFunc(app string) cli.HelpFunc {
 	return func(commands map[string]cli.CommandFactory) string {
 		var buf bytes.Buffer
 		buf.WriteString(fmt.Sprintf(startup.GetHelpSynopsis(), app))

@@ -43,10 +43,10 @@ func Test_ArgsSanitizer(t *testing.T) {
 	assert.True(t, ad.Help)
 }
 
-//Test_openshiftProbeHelpFunc test
-func Test_openshiftProbeHelpFunc(t *testing.T) {
+//Test_openshiftOrdealHelpFunc test
+func Test_openshiftOrdealHelpFunc(t *testing.T) {
 	cm := make(map[string]cli.CommandFactory)
-	bhf := openshiftProbeHelpFunc(common.OpenshiftordealCli)
+	bhf := openshiftOrdealHelpFunc(common.OpenshiftordealCli)
 	helpFile := bhf(cm)
 	assert.True(t, strings.Contains(helpFile, "Available commands are:"))
 	assert.True(t, strings.Contains(helpFile, "Usage: openshift-ordeal [--version] [--help] <command> [<args>]"))
