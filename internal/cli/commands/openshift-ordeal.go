@@ -107,6 +107,7 @@ var reportResultProcessor ResultProcessor = func(at *models.AuditBench, isSuccee
 //go:generate mockgen -destination=../mocks/mock_CmdEvaluator.go -package=mocks . CmdEvaluator
 type CmdEvaluator interface {
 	EvalCommand(commands []string, evalExpr string) eval.CmdEvalResult
+	EvalCommandPolicy(commands []string, evalExpr string, policy string) eval.CmdEvalResult
 }
 
 //NewopenshiftAudit new audit object

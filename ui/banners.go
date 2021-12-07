@@ -1,6 +1,6 @@
 package ui
 
-//openshiftAuditTest banner
+//OpenshiftAuditTest banner
 const OpenshiftAuditTest = `
  
 
