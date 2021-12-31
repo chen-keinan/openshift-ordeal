@@ -37,8 +37,6 @@ make build
 ./openshift-ordeal
 ```
 
-Note : openshift-ordeal require privileged user to execute tests.
-
 ## Quick Start
 
 ```
