@@ -12,7 +12,7 @@ The audit tests are the full implementation of [CIS openshift Benchmark specific
 audit result now can be leveraged as webhook via user plugin(using go plugin)
 #### Audit checks are performed on OpenShift cluster, and output audit report include :
  1.  root cause of the security issue.
- 2. proposed remediation for security issue
+ 2. proposed remediation for security issue.
 
 #### Openshift cluster scan output:
 
