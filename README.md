@@ -68,5 +68,5 @@ The openshift-ordeal support cis specs and can be easily extended:
 both specs can be easily extended by amended the spec files under ```~/.openshift-ordeal/benchmarks/openshift/v1.0.0``` folder
 
 ## Contribution
-- code contribution is welcome !! , contribution with tests and passing linter is more than welcome :)
+- code contribution is welcome !! , contribution with tests and passing linter is more than welcome
 - /.dev folder include vagrantfile to be used for development : [Dev Instruction](https://github.com/chen-keinan/openshift-ordeal/tree/master/.dev)
